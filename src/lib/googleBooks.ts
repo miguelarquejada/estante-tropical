@@ -55,9 +55,7 @@ export async function searchBooks(input: string, signal?: AbortSignal): Promise<
   const q = buildQuery(input)
   if (q.length < 2) return []
   const params = new URLSearchParams({ q, maxResults: '20', printType: 'books' })
-  const key = import.meta.env.VITE_GOOGLE_BOOKS_KEY
-  if (key) params.set('key', key)
-  const res = await fetch(`https://www.googleapis.com/books/v1/volumes?${params}`, { signal })
+  const res = await fetch(`/api/books?${params}`, { signal })
   if (res.status === 429) throw new BookSearchQuotaError()
   if (!res.ok) throw new Error(`Google Books respondeu ${res.status}`)
   const data = (await res.json()) as { items?: { id: string; volumeInfo?: VolumeInfo }[] }

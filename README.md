@@ -18,7 +18,7 @@ Sem `.env`, o app roda em **modo local**: tudo funciona (estantes, sessões, off
 
 1. Crie um projeto em [supabase.com](https://supabase.com).
 2. No **SQL Editor**, execute `supabase/migrations/0001_init.sql` (tabelas, RLS por usuário e bucket `covers`).
-3. Copie `.env.example` para `.env` e preencha `PUBLIC_SUPABASE_URL` e `PUBLIC_SUPABASE_ANON_KEY` (Settings → API).
+3. Copie `.env.example` para `.env` e preencha `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY` (Settings → API).
 4. Em **Authentication → URL Configuration**, adicione a URL do app (local e produção) em *Site URL* / *Redirect URLs*.
 5. Opcional, login com Google: **Authentication → Providers → Google** com o Client ID/Secret do Google Cloud.
 6. Para cadastro sem confirmação por e-mail (testes), desative *Confirm email* em Authentication → Providers → Email.
@@ -26,7 +26,7 @@ Sem `.env`, o app roda em **modo local**: tudo funciona (estantes, sessões, off
 ## Busca no Google Books
 
 A busca funciona sem chave, mas a cota anônima é compartilhada e costuma esgotar (o app avisa e oferece o cadastro manual).
-Crie uma chave gratuita no Google Cloud (API "Books API") e defina `PUBLIC_GOOGLE_BOOKS_KEY` no `.env`.
+Crie uma chave gratuita no Google Cloud (API "Books API") e defina `GOOGLE_BOOKS_KEY` (sem prefixo `VITE_`) no `.env` e, em produção, como variável de ambiente na Vercel. A chave fica só no servidor: o navegador chama `/api/books` (`api/books.ts`), que repassa a busca ao Google.
 
 ## Como funciona
 

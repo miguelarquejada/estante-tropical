@@ -91,7 +91,7 @@ function SearchTab({ shelf, onManual }: { shelf: Shelf; onManual: () => void }) 
       try {
         setResults(await searchBooks(query, ctrl.signal))
       } catch (e) {
-        if (e instanceof BookSearchQuotaError) setError('A busca atingiu o limite diário da Google Books API. Tente mais tarde, configure uma chave (PUBLIC_GOOGLE_BOOKS_KEY) ou cadastre manualmente.')
+        if (e instanceof BookSearchQuotaError) setError('A busca atingiu o limite diário da Google Books API. Tente mais tarde ou cadastre manualmente.')
         else if ((e as Error).name !== 'AbortError') setError('Não foi possível buscar agora. Verifique a conexão ou cadastre manualmente.')
       } finally {
         if (!ctrl.signal.aborted) setLoading(false)

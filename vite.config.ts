@@ -1,9 +1,22 @@
 import { defineConfig } from 'vitest/config'
+import { loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
-export default defineConfig({
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, '.', '')
+  const googleKey = env.GOOGLE_BOOKS_KEY ? `&key=${encodeURIComponent(env.GOOGLE_BOOKS_KEY)}` : ''
+  return {
+  server: {
+    proxy: {
+      '/api/books': {
+        target: 'https://www.googleapis.com',
+        changeOrigin: true,
+        rewrite: (path: string) => path.replace('/api/books', '/books/v1/volumes') + googleKey,
+      },
+    },
+  },
   plugins: [
     react(),
     tailwindcss(),
@@ -31,10 +44,10 @@ export default defineConfig({
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
         navigateFallback: '/index.html',
-        navigateFallbackDenylist: [/^\/auth\//],
+        navigateFallbackDenylist: [/^\/auth\//, /^\/api\//],
         runtimeCaching: [
           {
-            urlPattern: ({ url }) => url.hostname === 'www.googleapis.com' && url.pathname.startsWith('/books/'),
+            urlPattern: ({ url }) => url.origin === self.location.origin && url.pathname === '/api/books',
             handler: 'NetworkFirst',
             options: { cacheName: 'google-books-api', networkTimeoutSeconds: 5, expiration: { maxEntries: 60, maxAgeSeconds: 60 * 60 * 24 * 7 } },
           },
@@ -57,4 +70,5 @@ export default defineConfig({
     }),
   ],
   test: { environment: 'node', include: ['src/**/*.test.ts'] },
+  }
 })
