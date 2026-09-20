@@ -3,7 +3,8 @@
     "allow": [
       "Bash(npx vitest *)",
       "Read(//c/Users/migue/Desktop/projetos/estante-tropical/src/hooks/**)",
-      "Bash(python -)"
+      "Bash(python -)",
+      "Bash(rtk grep *)"
     ]
   }
 }
