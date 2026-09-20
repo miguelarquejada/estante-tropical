@@ -1,0 +1,113 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #fdfbf7;
+  --surface: #ffffff;
+  --surface-2: #f6f1e7;
+  --ink: #1f2a24;
+  --ink-2: #5a6a60;
+  --line: #e9e3d5;
+  --terra: #c2613f;
+  --terra-hover: #ad5232;
+  --on-terra: #ffffff;
+  --leaf: #3f7d58;
+  --leaf-soft: #e4efe7;
+  --terra-soft: #f7e6de;
+  --shadow-card: 0 1px 2px rgb(31 42 36 / 0.04), 0 8px 24px -12px rgb(31 42 36 / 0.16);
+  --shadow-cover: 0 2px 4px rgb(31 42 36 / 0.1), 0 10px 22px -8px rgb(31 42 36 / 0.32);
+  --glow-a: rgb(63 125 88 / 0.12);
+  --glow-b: rgb(194 97 63 / 0.1);
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #121816;
+  --surface: #1a2320;
+  --surface-2: #212c28;
+  --ink: #e8ede6;
+  --ink-2: #9db0a4;
+  --line: #2b3934;
+  --terra: #e08a66;
+  --terra-hover: #eb9d7c;
+  --on-terra: #24140d;
+  --leaf: #6db58a;
+  --leaf-soft: #1f2f27;
+  --terra-soft: #33231c;
+  --shadow-card: 0 1px 2px rgb(4 10 7 / 0.3), 0 8px 24px -12px rgb(4 10 7 / 0.55);
+  --shadow-cover: 0 2px 4px rgb(4 10 7 / 0.35), 0 10px 22px -8px rgb(4 10 7 / 0.7);
+  --glow-a: rgb(109 181 138 / 0.14);
+  --glow-b: rgb(224 138 102 / 0.1);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-line: var(--line);
+  --color-terra: var(--terra);
+  --color-terra-hover: var(--terra-hover);
+  --color-on-terra: var(--on-terra);
+  --color-leaf: var(--leaf);
+  --color-leaf-soft: var(--leaf-soft);
+  --color-terra-soft: var(--terra-soft);
+  --font-display: 'Newsreader', 'Lora', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', 'DM Sans', system-ui, sans-serif;
+  --shadow-card: var(--shadow-card);
+  --shadow-cover: var(--shadow-cover);
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+.organic-header {
+  background:
+    radial-gradient(60% 90% at 0% 0%, var(--glow-a), transparent 70%),
+    radial-gradient(50% 80% at 100% 10%, var(--glow-b), transparent 70%);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--terra), color-mix(in srgb, var(--terra) 78%, var(--leaf)));
+  color: var(--on-terra);
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.safe-top {
+  padding-top: max(env(safe-area-inset-top), 0px);
+}
+.safe-bottom {
+  padding-bottom: max(env(safe-area-inset-bottom), 0px);
+}
+
+:focus-visible {
+  outline: 2px solid var(--leaf);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
