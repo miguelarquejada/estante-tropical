@@ -15,9 +15,9 @@ grep -r "supabase_anon_key\|supabase_url" src/ --exclude-dir=node_modules
 ```
 
 **Variáveis que devem estar APENAS no servidor/hospedagem:**
-- `VITE_SUPABASE_URL` - URL do projeto Supabase
-- `VITE_SUPABASE_ANON_KEY` - Chave anônima (exposta no client, mas protegida por RLS)
-- `VITE_GOOGLE_BOOKS_KEY` - Chave da API (opcional, com rate limiting)
+- `PUBLIC_SUPABASE_URL` - URL do projeto Supabase
+- `PUBLIC_SUPABASE_ANON_KEY` - Chave anônima (exposta no client, mas protegida por RLS)
+- `PUBLIC_GOOGLE_BOOKS_KEY` - Chave da API (opcional, com rate limiting)
 
 ### 1.2 Dependências
 ```bash
@@ -102,9 +102,9 @@ vercel
 
 # Configurar variáveis de ambiente no painel:
 # Settings → Environment Variables
-# - VITE_SUPABASE_URL
-# - VITE_SUPABASE_ANON_KEY
-# - VITE_GOOGLE_BOOKS_KEY (opcional)
+# - PUBLIC_SUPABASE_URL
+# - PUBLIC_SUPABASE_ANON_KEY
+# - PUBLIC_GOOGLE_BOOKS_KEY (opcional)
 ```
 
 **Configuração automática (`vercel.json`):**
@@ -189,7 +189,7 @@ Referrer-Policy: strict-origin-when-cross-origin
 
 ### 5.2 CORS
 Supabase já libera CORS para hospedagens públicas. Se houver erro CORS:
-- Checar que `VITE_SUPABASE_URL` está correto
+- Checar que `PUBLIC_SUPABASE_URL` está correto
 - Verificar que RLS policies não bloqueiam requests legítimas
 
 ## 6. Testing Antes de Deploy
@@ -262,10 +262,10 @@ Se algo quebrou:
 | Problema | Solução |
 |----------|---------|
 | Login falha | Adicionar URL do app em Supabase → Auth → URL Configuration |
-| CORS error | Verificar `VITE_SUPABASE_URL` está correto |
+| CORS error | Verificar `PUBLIC_SUPABASE_URL` está correto |
 | "Permission denied" | Verificar RLS policies e user_id no token |
 | Service Worker offline não funciona | Limpar cache, confirmar que `/dist/` tem `sw.js` |
-| Google Books API rate limit | Adicionar `VITE_GOOGLE_BOOKS_KEY` |
+| Google Books API rate limit | Adicionar `PUBLIC_GOOGLE_BOOKS_KEY` |
 | Build lento | Usar `npm ci` em CI/CD (mais rápido que `npm install`) |
 
 ## 10. Autenticação Google (Opcional)
